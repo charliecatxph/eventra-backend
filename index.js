@@ -22,7 +22,7 @@ const firebase = initializeApp({
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   host: "smtp.hostinger.com",
-  port: 587, // 465 ssl
+  port: process.env.MODE === "PRODUCTION" ? 465 : 587, // 465 ssl
   secure: process.env.MODE === "PRODUCTION",
   auth: {
     user: process.env.TRANSPORTER_EMAIL,
@@ -63,7 +63,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: true,
+    origin: process.env.ORIGIN,
     credentials: true,
   })
 );
