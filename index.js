@@ -123,7 +123,11 @@ const protectedRoute = (req, res, next) => {
   const refreshToken = req.cookies?.refreshToken;
 
   if (!accessToken || !refreshToken) {
-    res.clearCookie("refreshToken", { httpOnly: true, secure: false });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.MODE === "PRODUCTION",
+      sameSite: "none",
+    });
     return res.status(400).json({ message: "No tokens provided." });
   }
 
@@ -984,7 +988,11 @@ app.post(
 );
 
 app.post("/logout", (req, res) => {
-  res.clearCookie("refreshToken", { httpOnly: true, secure: false });
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.MODE === "PRODUCTION",
+    sameSite: "none",
+  });
   res.sendStatus(200);
 });
 
@@ -1232,10 +1240,15 @@ app.post("/login", async (req, res) => {
       expiresIn: 30 * 24 * 60 * 60,
     });
 
-    res.clearCookie("refreshToken", { httpOnly: true, secure: false });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.MODE === "PRODUCTION",
+      sameSite: "none",
+    });
     res.cookie("refreshToken", refreshToken, {
-      httpOnly: true, // Prevents client-side JavaScript from accessing it
+      httpOnly: true,
       secure: process.env.MODE === "PRODUCTION", // Ensures it is only sent over HTTPS
+      sameSite: "none",
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
     // Send Access Token in Response
