@@ -264,17 +264,58 @@ app.post("/get-available-events", async (req, res) => {
   } catch (e) {}
 });
 
+app.post("/fetch-ord-event", async (req, res) => {
+  const { evId } = req.body;
+
+  if (!evId)
+    return res.status(400).json({
+      success: false,
+      msg: "",
+      err: "Incomplete parameters.",
+    });
+
+  try {
+    const reqx = await firestore.collection("ordinaryEvent").doc(evId).get();
+
+    if (!reqx.exists) throw new Error("Event not found.");
+
+    res.status(200).json({
+      success: true,
+      data: reqx.data(),
+      err: "",
+    });
+  } catch (e) {
+    return res.status(400).json({
+      success: false,
+      msg: "",
+      err: e.message,
+    });
+  }
+});
+
 app.post("/attend-ord-ev", async (req, res) => {
-  const { name, email, orgN, orgP, diet, evId, token } = JSON.parse(
-    req.body.data
-  );
+  const {
+    name,
+    email,
+    orgN,
+    orgP,
+    phoneNumber,
+    salutations,
+    addr,
+    evId,
+    token,
+  } = JSON.parse(req.body.data);
 
   if (
     !name ||
     !email.match(
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     ) ||
-    !diet ||
+    !orgN ||
+    !orgP ||
+    !salutations ||
+    !addr ||
+    !phoneNumber ||
     !evId ||
     !token
   )
@@ -339,11 +380,14 @@ app.post("/attend-ord-ev", async (req, res) => {
       .set({
         name: name.trim(),
         email: email.trim(),
-        orgN: orgN.trim() || "N/A",
-        orgP: orgP.trim() || "N/A",
-        diet: diet.trim(),
+        orgN: orgN.trim(),
+        orgP: orgP.trim(),
+        phoneNumber: phoneNumber.trim(),
+        salutations: salutations.trim(),
+        addr: addr.trim(),
         evId: evId,
         registeredOn: Timestamp.fromMillis(new Date().getTime()),
+        public_id_qr: qrUpl.public_id,
       });
 
     await firestore.collection("notifications").add({
@@ -355,7 +399,7 @@ app.post("/attend-ord-ev", async (req, res) => {
 
     const mailOptions = {
       from: `${rrxData.name} <events@vinceoleo.com>`, // sender address
-      to: `${email}`, // list of receivers
+      to: `${email.trim()}`, // list of receivers
       subject: `${rrxData.name} Event Confirmation`, // Subject line
       attachments: [
         {
