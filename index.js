@@ -562,13 +562,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                             valign="top"
                             style="padding: 0 10px 0 0"
                           >
-                            <img
-                              src="https://cdn-icons-png.flaticon.com/512/747/747310.png"
-                              width="18"
-                              height="18"
-                              alt="Calendar"
-                              style="display: block"
-                            />
+                            📅
                           </td>
                           <td style="padding: 0">
                             <p style="margin: 0; font-size: 16px">
@@ -597,13 +591,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                             valign="top"
                             style="padding: 0 10px 0 0"
                           >
-                            <img
-                              src="https://cdn-icons-png.flaticon.com/512/2088/2088617.png"
-                              width="18"
-                              height="18"
-                              alt="Clock"
-                              style="display: block"
-                            />
+                         ⌚
                           </td>
                           <td style="padding: 0">
                             <p style="margin: 0; font-size: 16px">
@@ -635,13 +623,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                             valign="top"
                             style="padding: 0 10px 0 0"
                           >
-                            <img
-                              src="https://cdn-icons-png.flaticon.com/512/684/684908.png"
-                              width="18"
-                              height="18"
-                              alt="Location"
-                              style="display: block"
-                            />
+                            📍
                           </td>
                           <td style="padding: 0">
                             <p style="margin: 0; font-size: 16px">
