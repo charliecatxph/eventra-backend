@@ -407,6 +407,18 @@ app.post("/attend-ord-ev", async (req, res) => {
           path: qrUpl.secure_url,
         },
       ],
+      text: `Hello, ${name},\n \nThank you for registering for our event. We're excited to have you join us! Below are the details of the event: \n \nDate: ${moment
+        .unix(rrxData.date._seconds)
+        .utcOffset(rrxData.offset * -1)
+        .format("MMM DD, YYYY")} \nTime: ${moment
+        .unix(rrxData.startT._seconds)
+        .utcOffset(rrxData.offset * -1)
+        .format("hh:mm A")} - ${moment
+        .unix(rrxData.endT._seconds)
+        .utcOffset(rrxData.offset * -1)
+        .format("hh:mm A")}\nLocation: ${rrxData.location}\nDescription: ${
+        rrxData.description
+      }\nBefore the Event:\nPlease find an attached QR code in this email, which serves as your entry pass to the event. Ensure you have it readily available and present it upon arrival at the venue.\nDuring the event:\nUpon arrival, please approach the registration table where our team will scan your QR code. After scanning, you will be issued an Eventra Passport, which you can use throughout the duration of the event. With your Eventra Passport, you will be able to scan other attendees' passports to access their information.\nAfter the event:\nOnce the event concludes, your Eventra Passport will become inactive. Be sure to utilize it while the event is ongoing to take full advantage of its features.\n\nPowered by Eventra Events\nMade by CTX Technologies (CTX Softwares Philippines)`,
       html: `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -789,6 +801,7 @@ app.post("/attend-ord-ev", async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions).catch((e) => {
+      console.log(e);
       throw new Error("Fail to send mail.");
     });
     return res.status(201).json({
