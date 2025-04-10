@@ -21,8 +21,8 @@ const firebase = initializeApp({
 
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-  host: "smtp.hostinger.com",
-  port: process.env.MODE === "PRODUCTION" ? 465 : 587, // 465 ssl
+  host: "mail.smtp2go.com",
+  port: process.env.MODE === "PRODUCTION" ? 465 : 2525, // 465 ssl
   secure: process.env.MODE === "PRODUCTION",
   auth: {
     user: process.env.TRANSPORTER_EMAIL,
@@ -314,7 +314,6 @@ app.post("/attend-ord-ev", async (req, res) => {
     !orgN ||
     !orgP ||
     !salutations ||
-    !addr ||
     !phoneNumber ||
     !evId ||
     !token
@@ -384,7 +383,7 @@ app.post("/attend-ord-ev", async (req, res) => {
         orgP: orgP.trim(),
         phoneNumber: phoneNumber.trim(),
         salutations: salutations.trim(),
-        addr: addr.trim(),
+        addr: addr.trim() || "",
         evId: evId,
         registeredOn: Timestamp.fromMillis(new Date().getTime()),
         public_id_qr: qrUpl.public_id,
@@ -416,9 +415,9 @@ app.post("/attend-ord-ev", async (req, res) => {
         .format("hh:mm A")} - ${moment
         .unix(rrxData.endT._seconds)
         .utcOffset(rrxData.offset * -1)
-        .format("hh:mm A")}\nLocation: ${rrxData.location}\nDescription: ${
-        rrxData.description
-      }\nBefore the Event:\nPlease find an attached QR code in this email, which serves as your entry pass to the event. Ensure you have it readily available and present it upon arrival at the venue.\nDuring the event:\nUpon arrival, please approach the registration table where our team will scan your QR code. After scanning, you will be issued an Eventra Passport, which you can use throughout the duration of the event. With your Eventra Passport, you will be able to scan other attendees' passports to access their information.\nAfter the event:\nOnce the event concludes, your Eventra Passport will become inactive. Be sure to utilize it while the event is ongoing to take full advantage of its features.\n\nPowered by Eventra Events\nMade by CTX Technologies (CTX Softwares Philippines)`,
+        .format("hh:mm A")}\nLocation: ${
+        rrxData.location
+      }\n\nBefore the Event:\nPlease find an attached QR code in this email, which serves as your entry pass to the event. Ensure you have it readily available and present it upon arrival at the venue.\nDuring the event:\nUpon arrival, please approach the registration table where our team will scan your QR code. After scanning, you will be issued an Eventra Passport, which you can use throughout the duration of the event. With your Eventra Passport, you will be able to scan other attendees' passports to access their information.\nAfter the event:\nOnce the event concludes, your Eventra Passport will become inactive. Be sure to utilize it while the event is ongoing to take full advantage of its features.\n\nPowered by Eventra Events\nMade by CTX Technologies (CTX Softwares Philippines)`,
       html: `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -461,7 +460,7 @@ app.post("/attend-ord-ev", async (req, res) => {
           >
             <tr>
               <td
-                style="padding: 0; background-color: #4f46e5; height: 8px"
+                style="padding: 0; background-color: #4cbaa1; height: 8px"
               ></td>
             </tr>
             <tr>
@@ -471,7 +470,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                     margin: 0;
                     font-size: 28px;
                     font-weight: 700;
-                    color: #4f46e5;
+                    color: #4cbaa1;
                   "
                 >
                   Event Confirmation
@@ -540,7 +539,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                           margin: 0;
                           font-size: 22px;
                           font-weight: 600;
-                          color: #4f46e5;
+                          color: #4cbaa1;
                         "
                       >
                         ${rrxData.name}
@@ -591,7 +590,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                             valign="top"
                             style="padding: 0 10px 0 0"
                           >
-                         ⌚
+                            ⌚
                           </td>
                           <td style="padding: 0">
                             <p style="margin: 0; font-size: 16px">
@@ -643,7 +642,32 @@ app.post("/attend-ord-ev", async (req, res) => {
                           line-height: 1.5;
                         "
                       >
-                        ${rrxData.description}
+                        For starters, please access the event brochure by
+                        clicking the button below:
+                        <a
+                          href="https://drive.google.com/file/d/1N1oH8ixjKXuWaSGe3Civ_LpC_YOrh7MA/view"
+                          target="_blank"
+                          style="text-decoration: none"
+                        >
+                          <button
+                            style="
+                              display: block;
+                              width: 50%;
+                              margin: 0 auto;
+                              padding: 0.75rem 0.5rem;
+
+                              background-color: #4cbaa1;
+                              color: white;
+                              font-weight: 600;
+                              border: none;
+                              border-radius: 15px;
+                              margin-top: 1rem;
+                              cursor: pointer;
+                            "
+                          >
+                            Download Brochure
+                          </button>
+                        </a>
                       </p>
                     </td>
                   </tr>
@@ -671,7 +695,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                     margin: 0;
                     font-size: 18px;
                     font-weight: 600;
-                    color: #4f46e5;
+                    color: #4cbaa1;
                   "
                 >
                   Before the Event
@@ -692,7 +716,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                     margin: 0;
                     font-size: 18px;
                     font-weight: 600;
-                    color: #4f46e5;
+                    color: #4cbaa1;
                   "
                 >
                   During the Event
@@ -716,7 +740,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                     margin: 0;
                     font-size: 18px;
                     font-weight: 600;
-                    color: #4f46e5;
+                    color: #4cbaa1;
                   "
                 >
                   After the Event
@@ -757,7 +781,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                     margin: 15px 0 0 0;
                     font-size: 14px;
                     font-weight: 600;
-                    color: #4f46e5;
+                    color: #4cbaa1;
                   "
                 >
                   Powered by Eventra Events
@@ -782,8 +806,13 @@ app.post("/attend-ord-ev", async (req, res) => {
 `,
     };
 
-    await transporter.sendMail(mailOptions).catch((e) => {
-      console.log(e);
+    await transporter.sendMail(mailOptions).catch(async (e) => {
+      try {
+        await firestore.collection("atendee-org").doc(atnUUID).delete();
+        await cloudinary.uploader.destroy(qrUpl.public_id);
+      } catch (e) {
+        throw new Error("Fatal error.");
+      }
       throw new Error("Fail to send mail.");
     });
     return res.status(201).json({
