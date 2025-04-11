@@ -568,7 +568,7 @@ app.post("/attend-ord-ev", async (req, res) => {
                               <strong>Date:</strong> ${moment
                                 .unix(rrxData.date._seconds)
                                 .utcOffset(rrxData.offset * -1)
-                                .format("MMM DD, YYYY")}
+                                .format("dddd, MMM DD, YYYY")}
                             </p>
                           </td>
                         </tr>
@@ -642,10 +642,9 @@ app.post("/attend-ord-ev", async (req, res) => {
                           line-height: 1.5;
                         "
                       >
-                        For starters, please access the event brochure by
-                        clicking the button below:
+                        For more information, download the event brochure below:
                         <a
-                          href="https://drive.google.com/file/d/1N1oH8ixjKXuWaSGe3Civ_LpC_YOrh7MA/view"
+                          href="https://drive.google.com/file/d/1PVxY56IvWsaVnY0AJI7WD0UC-itmKrwp/view?usp=drive_link"
                           target="_blank"
                           style="text-decoration: none"
                         >
@@ -758,7 +757,44 @@ app.post("/attend-ord-ev", async (req, res) => {
         </td>
       </tr>
 
-      <!-- CTA Button -->
+      <tr>
+        <td style="padding: 20px 30px">
+          <h3
+            style="margin: 0; font-size: 15px; font-weight: 600; color: #4cbaa1"
+          >
+            If you have any questions, please do not hesistate to contact:
+          </h3>
+
+          <div>
+            <ul style="list-style-type: none; padding-left: 0">
+              <li style="font-weight: 500">Marciano Ferrancullo Jr.</li>
+              <li>
+                <a
+                  href="mailto:marc_chevoleo@hotmail.com"
+                  style="text-decoration: none"
+                >
+                  marc_chevoleo@hotmail.com
+                </a>
+              </li>
+              <li>+63 966 387 4917</li>
+            </ul>
+          </div>
+          <div>
+            <ul style="list-style-type: none; padding-left: 0">
+              <li style="font-weight: 500">Marc Ferrancullo</li>
+              <li>
+                <a
+                  href="mailto:marcferrancullo@gmail.com"
+                  style="text-decoration: none"
+                >
+                  marcferrancullo@gmail.com
+                </a>
+              </li>
+              <li>+63 915 644 2425</li>
+            </ul>
+          </div>
+        </td>
+      </tr>
 
       <!-- Footer -->
       <tr>
