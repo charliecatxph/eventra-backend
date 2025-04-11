@@ -765,20 +765,7 @@ app.post("/attend-ord-ev", async (req, res) => {
             If you have any questions, please do not hesistate to contact:
           </h3>
 
-          <div>
-            <ul style="list-style-type: none; padding-left: 0">
-              <li style="font-weight: 500">Marciano Ferrancullo Jr.</li>
-              <li>
-                <a
-                  href="mailto:marc_chevoleo@hotmail.com"
-                  style="text-decoration: none"
-                >
-                  marc_chevoleo@hotmail.com
-                </a>
-              </li>
-              <li>+63 966 387 4917</li>
-            </ul>
-          </div>
+         
           <div>
             <ul style="list-style-type: none; padding-left: 0">
               <li style="font-weight: 500">Marc Ferrancullo</li>
@@ -791,6 +778,20 @@ app.post("/attend-ord-ev", async (req, res) => {
                 </a>
               </li>
               <li>+63 915 644 2425</li>
+            </ul>
+          </div>
+           <div>
+            <ul style="list-style-type: none; padding-left: 0">
+              <li style="font-weight: 500">Marciano Ferrancullo Jr.</li>
+              <li>
+                <a
+                  href="mailto:marc_chevoleo@hotmail.com"
+                  style="text-decoration: none"
+                >
+                  marc_chevoleo@hotmail.com
+                </a>
+              </li>
+              <li>+63 966 387 4917</li>
             </ul>
           </div>
         </td>
