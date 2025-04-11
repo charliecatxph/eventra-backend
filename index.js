@@ -762,7 +762,7 @@ app.post("/attend-ord-ev", async (req, res) => {
           <h3
             style="margin: 0; font-size: 15px; font-weight: 600; color: #4cbaa1"
           >
-            If you have any questions, please do not hesistate to contact:
+            If you have any questions, please do not hesitate to contact:
           </h3>
 
          
